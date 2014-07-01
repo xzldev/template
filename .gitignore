@@ -1,0 +1,42 @@
+.idea
+.idea/**
+*.iws
+*.ipr
+*.iml
+/target
+*/target
+/build
+*/build
+/out
+*/out
+bin
+*/bin
+.gradle/
+*.classpath
+*.project
+*.settings
+.nb-gradle-properties
+target
+release.properties
+*.versionsBackup
+*.releaseBackup
+.DS_Store
+.metadata
+atlassian-ide-plugin.xml
+
+# Typically *NIX text editors, by default, append '~' to files on saving to make backups
+*~
+
+# NetBeans specific files/directories
+.nbattrs
+
+# Miscellaneous
+*.log
+.clover
+
+# JBoss Transactions
+ObjectStore
+
+# Profiler and heap dumps
+*.jps
+*.hprof
