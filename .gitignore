@@ -40,3 +40,7 @@ ObjectStore
 # Profiler and heap dumps
 *.jps
 *.hprof
+
+#git draw generated
+git-draw.dot
+git-draw.png
