@@ -1,0 +1,83 @@
+= 页面1 只管顺序不管layout
+
+== form1
+
+=== group1
+* 姓名-name：String|只读|隐藏
+* 性别-gender：Select[*全部|男|女|保密]
+* 备注-memo：Text
+
+=== 查询条件，在session内记住
+* 一级分类-cat1：Select[全部一级分类] 
+
+IMPORTANT:  event：onSelect|api(/q/goodsCat2List) -> {catId,catName}[] -> cat2
+
+* 二级分类-cat2：Select[属于已选一级分类的二级分类]
+* 入库天数不少于-inStockMinDays：int，默认0，被清空相当于0
+* 价格-price：double(2)|元  //还可加上bean validator表达式（前后台都按这个验证）
+* 价格1-price1：int|分
+* 开始日期-startDate：Date(默认当天，不能大于结束日期)
+* 结束日期-endDate：Date(默认当天，不能小于开始日期)
+* 查询-search：Button
+
+IMPORTANT:  event：onClick|api(/q/queryCenterGoodsInOutList) -> <<result-table, result table>>
+
+* 重置-reset：Button
+* 导出-export：Button
+
+IMPORTANT:  event：onClick|api(/d/expCenterGoodsInOut) -> excel
+
+
+
+[[result-table]]
+== 出入库列表
+|================================================
+| 时间| 供应商| 操作类型 | 商品名称 | 商品条码 | 出入库单价 | 发生金额 | 库存变化量 | 操作后库存 | 操作人员 | 未售数量 | 销售单价 |原始入库单批次号
+|================================================
+
+| createTime | vendorName | inOutStockWayStr | goodsName | barCode | supplyPrice | totalPrice | amount | stockAmount | createUser | unsoldAmount | price |stockInBatchNo
+
+
+.ditaa Diagram Example
+[ditaa,file="images/ditaa-example.png"]
+--
+    +--------+   +-------+    +-------+
+    |        |---+ ditaa +--->|       |
+    |  Text  |   +-------+    |diagram|
+    |Document|   |!magic!|    |       |
+    |     {d}|   |       |    |       |
+    +---+----+   +-------+    +-------+
+        :                         ^
+        |       Lots of work      |
+        +-------------------------+
+--
+
+
+.UML Diagram Example
+[uml,file="uml-example.png"]
+--
+abstract class AbstractList
+abstract AbstractCollection
+interface List
+interface Collection
+
+List <|-- AbstractList
+Collection <|-- AbstractCollection
+
+Collection <|- List
+AbstractCollection <|- AbstractList
+AbstractList <|-- ArrayList
+
+class ArrayList {
+  Object[] elementData
+  size()
+}
+
+enum TimeUnit {
+  DAYS
+  HOURS
+  MINUTES
+}
+
+annotation SuppressWarnings
+--
